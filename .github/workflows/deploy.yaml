@@ -15,14 +15,13 @@ jobs:
         env:
           ORACLE_HOME: "/usr/lib/oracle/19.9/client64/"
           LD_LIBRARY_PATH: "$ORACLE_HOME/lib/"
-          PATH: "$ORACLE_HOME/bin/:$PATH"
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script_stop: true
-          envs: ORACLE_HOME,LD_LIBRARY_PATH,PATH
+          envs: ORACLE_HOME,LD_LIBRARY_PATH
           script: |
             cd ~/med-share.db
             git pull origin main
