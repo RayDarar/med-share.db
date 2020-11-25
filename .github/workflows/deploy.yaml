@@ -1,4 +1,4 @@
-name: Node.js CD
+name: SQL CD
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
           script: |
             cd ~/med-share.db
             git pull origin main
+            source ~/.bashrc
             sqlplus sys/Oracle18@localhost/xe as sysdba
             @/root/med-share.db/src/main.sql
             exit;
