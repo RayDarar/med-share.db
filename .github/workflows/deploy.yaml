@@ -21,8 +21,7 @@ jobs:
           script: |
             cd ~/med-share.db
             git pull origin main
+            cd src
             export ORACLE_HOME=/usr/lib/oracle/19.9/client64/
             export LD_LIBRARY_PATH="$ORACLE_HOME/lib/"
-            sqlplus sys/Oracle18@localhost/xe as sysdba
-            @/root/med-share.db/src/main.sql
-            exit;
+            exit | sqlplus sys/Oracle18@localhost/xe as sysdba @main.sql
