@@ -1,1 +1,1 @@
-insert into dummy(id, created) values(1, sysdate);
+-- Package/Stored Procedures/Functions declarations
