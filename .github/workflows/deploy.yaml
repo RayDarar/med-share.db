@@ -12,19 +12,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
-        env:
-          ORACLE_HOME: "/usr/lib/oracle/19.9/client64/"
-          LD_LIBRARY_PATH: "$ORACLE_HOME/lib/"
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script_stop: true
-          envs: ORACLE_HOME,LD_LIBRARY_PATH
           script: |
             cd ~/med-share.db
             git pull origin main
+            export ORACLE_HOME=/usr/lib/oracle/19.9/client64/
+            export LD_LIBRARY_PATH="$ORACLE_HOME/lib/"
             sqlplus sys/Oracle18@localhost/xe as sysdba
             @/root/med-share.db/src/main.sql
             exit;
