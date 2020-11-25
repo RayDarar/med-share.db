@@ -1,2 +1,6 @@
-# med-share.db
-DBMS course final project. Database part
+# Med-Share ⚕️
+
+DB part. Build using these ⚙️:
+
+- Oracle XE 18c
+- Docker

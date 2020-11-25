@@ -1,0 +1,1 @@
+insert into dummy(id, created) values(1, sysdate);
