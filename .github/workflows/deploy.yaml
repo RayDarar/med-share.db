@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: SSH and deploy node app
+      - name: SSH and deploy
         uses: appleboy/ssh-action@master
         env:
           ORACLE_HOME: /usr/lib/oracle/19.9/client64/
@@ -21,6 +21,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          script_stop: true
+          envs: ORACLE_HOME,LD_LIBRARY_PATH,PATH
           script: |
             cd ~/med-share.db
             git pull origin main
