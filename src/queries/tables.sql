@@ -8,6 +8,7 @@ drop table posts;
 create table pharmacies (
   id integer primary key,
   title varchar2(200) not null,
+  phones varchar(200) not null,
   address varchar2(200) not null,
   latitude number,
   longitude number
@@ -15,7 +16,7 @@ create table pharmacies (
 
 create table drugs (
   id integer primary key,
-  title varchar2(100) not null,
+  title varchar2(1000) not null,
   status varchar2(20) not null
 );
 
