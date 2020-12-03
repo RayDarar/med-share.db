@@ -1,5 +1,3 @@
--- Package/Stored Procedures/Functions declarations
-
 create or replace package dataset_management
 is
   procedure add_pharmacy(
