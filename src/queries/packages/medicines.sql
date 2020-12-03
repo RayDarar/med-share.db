@@ -52,7 +52,7 @@ is
     p_result out sys_refcursor) is
   begin
     open p_result for
-    select * from drugs
+    select id, title, status, get_medicine_available(id) as available from drugs
     where id = p_id;
   end;
   procedure get_analogs(
