@@ -8,8 +8,8 @@ is
     p_result out sys_refcursor,
     p_offset integer,
     p_count out integer);
-  procedure get_post(
-    p_id integer,
+  procedure get_my_posts(
+    p_user_id integer,
     p_result out sys_refcursor);
   procedure add_post(
     user_id integer, 
@@ -18,6 +18,14 @@ is
     storage varchar2, 
     expires date, 
     contacts varchar2);
+  procedure get_confirmation_posts(
+    p_result out sys_refcursor);
+  procedure confirm_post(
+    p_id integer);
+  procedure deny_post(
+    p_id integer);
+  procedure archive_post(
+    p_id integer);
 end;
 
 create or replace package body posts_management
@@ -51,13 +59,13 @@ is
     where similarity(title, p_query) > 80
     and post_status = 'published';
   end;
-  procedure get_post(
-    p_id integer,
+  procedure get_my_posts(
+    p_user_id integer,
     p_result out sys_refcursor) is
   begin
     open p_result for
     select * from posts
-    where id = p_id;
+    where user_id = p_user_id;
   end;
   procedure add_post(
     user_id integer, 
@@ -70,10 +78,38 @@ is
     insert into posts(user_id, title, status, storage, expires, contacts, post_status)
     values(user_id, title, status, storage, expires, contacts, 'processing');
   end;
+  procedure get_confirmation_posts(
+    p_result out sys_refcursor) is
+  begin
+    open p_result for
+    select * from posts
+    where post_status = 'processing';
+  end;
+  procedure confirm_post(
+    p_id integer) is
+  begin
+    update posts
+    set post_status = 'published'
+    where id = p_id;
+  end;
+  procedure deny_post(
+    p_id integer) is
+  begin
+    update posts
+    set post_status = 'denied'
+    where id = p_id;
+  end;
+  procedure archive_post(
+    p_id integer) is
+  begin
+    update posts
+    set post_status = 'archived'
+    where id = p_id;
+  end;
 end;
 
 
-select * from users;
+select * from posts;
 
 
 
