@@ -49,6 +49,7 @@ create table posts (
   user_id integer not null,
   title varchar2(200) not null,
   status varchar2(20) not null,
+  amount varchar2(200) not null,
   storage varchar2(200) not null,
   expires date not null,
   contacts varchar2(100) not null,

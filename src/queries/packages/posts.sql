@@ -14,7 +14,8 @@ is
   procedure add_post(
     user_id integer, 
     title varchar2, 
-    status varchar2, 
+    status varchar2,
+    amount varchar2,
     storage varchar2, 
     expires date, 
     contacts varchar2);
@@ -47,8 +48,8 @@ is
     p_count out integer) is
   begin
     open p_result for
-    select id, title, status, storage, expires, contacts, post_status, similarity(title, p_query) as score
-    from posts
+    select p.id, p.title, p.status, p.amount, p.storage, p.expires, p.contacts, p.post_status, similarity(title, p_query) as score, u.fullname
+    from posts p join users u on (p.user_id = u.id)
     where similarity(title, p_query) > 80
     and post_status = 'published'
     order by score desc
@@ -71,18 +72,20 @@ is
     user_id integer, 
     title varchar2, 
     status varchar2, 
+    amount varchar2,
     storage varchar2, 
     expires date, 
     contacts varchar2) is
   begin
-    insert into posts(user_id, title, status, storage, expires, contacts, post_status)
-    values(user_id, title, status, storage, expires, contacts, 'processing');
+    insert into posts(user_id, title, status, amount, storage, expires, contacts, post_status)
+    values(user_id, title, status, amount, storage, expires, contacts, 'processing');
   end;
   procedure get_confirmation_posts(
     p_result out sys_refcursor) is
   begin
     open p_result for
-    select * from posts
+    select p.id, p.title, p.status, p.amount, p.storage, p.expires, p.contacts, p.post_status, u.fullname
+    from posts p join users u on (p.user_id = u.id)
     where post_status = 'processing';
   end;
   procedure confirm_post(
@@ -108,8 +111,6 @@ is
   end;
 end;
 
-
-select * from posts;
 
 
 
