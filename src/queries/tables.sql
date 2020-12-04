@@ -39,7 +39,7 @@ create table drugs_analogs (
 
 create table users (
   id integer GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) primary key,
-  phone varchar2(20) not null,
+  phone varchar2(20) unique not null,
   fullname varchar2(100) not null,
   password varchar2(200) not null
 );
