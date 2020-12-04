@@ -29,8 +29,6 @@ is
   end;
 end;
 
-select * from users;
-
 
 
 
