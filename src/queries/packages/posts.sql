@@ -97,17 +97,15 @@ is
   end;
   procedure deny_post(
     p_id integer) is
+  v_statement varchar2(200) := 'update posts set post_status = ''deny'' where id = ' || p_id;
   begin
-    update posts
-    set post_status = 'denied'
-    where id = p_id;
+    execute immediate v_statement;
   end;
   procedure archive_post(
     p_id integer) is
+  v_statement varchar2(200) := 'update posts set post_status = ''archived'' where id = ' || p_id;
   begin
-    update posts
-    set post_status = 'archived'
-    where id = p_id;
+    execute immediate v_statement;
   end;
 end;
 

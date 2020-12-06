@@ -44,6 +44,12 @@ create table users (
   password varchar2(200) not null
 );
 
+create table users_log (
+  id integer GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) primary key,
+  user_id integer not null,
+  datetime date not null
+);
+
 create table posts (
   id integer GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) primary key,
   user_id integer not null,
@@ -58,6 +64,12 @@ create table posts (
 );
 
 
+create table posts_log (
+  id integer GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) primary key,
+  post_id integer not null,
+  datetime date not null,
+  action varchar2(100) not null
+);
 
 
 
